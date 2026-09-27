@@ -6,6 +6,7 @@ import {
   useEffect,
   useMemo,
   useState,
+  useSyncExternalStore,
   type ReactNode,
 } from "react";
 import type {
@@ -47,15 +48,16 @@ type FinanceContextValue = {
 
 const FinanceContext = createContext<FinanceContextValue | null>(null);
 
-export function FinanceProvider({ children }: { children: ReactNode }) {
-  const [ready, setReady] = useState(false);
-  const [month, setMonth] = useState(currentMonth);
-  const [state, setState] = useState<FinanceState>(SEED_DATA);
+const noopSubscribe = () => () => {};
+const clientReady = () => true;
+const serverReady = () => false;
 
-  useEffect(() => {
-    setState(loadState());
-    setReady(true);
-  }, []);
+export function FinanceProvider({ children }: { children: ReactNode }) {
+  // The server and hydration pass both render the loading state. After hydration,
+  // expose the state loaded from this browser without writing seed data over it.
+  const ready = useSyncExternalStore(noopSubscribe, clientReady, serverReady);
+  const [month, setMonth] = useState(currentMonth);
+  const [state, setState] = useState<FinanceState>(loadState);
 
   useEffect(() => {
     if (!ready) return;

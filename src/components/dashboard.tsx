@@ -94,8 +94,10 @@ export function Dashboard() {
       <main className="mx-auto max-w-6xl space-y-6 px-4 py-6">
         <SummaryCards />
         <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-          <TransactionTable />
-          <div className="space-y-4">
+          <div className="min-w-0">
+            <TransactionTable />
+          </div>
+          <div className="min-w-0 space-y-4">
             <ExpenseChart />
             <button
               type="button"

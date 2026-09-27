@@ -35,12 +35,13 @@ export function ExpenseChart() {
   );
   const total = slices.reduce((sum, item) => sum + item.total, 0);
 
-  let cursor = 0;
   const arcs = slices.map((item, index) => {
+    const precedingTotal = slices
+      .slice(0, index)
+      .reduce((sum, previous) => sum + previous.total, 0);
     const portion = total === 0 ? 0 : (item.total / total) * 360;
-    const start = cursor;
-    const end = cursor + Math.max(portion, 0.4);
-    cursor += portion;
+    const start = total === 0 ? 0 : (precedingTotal / total) * 360;
+    const end = start + Math.max(portion, 0.4);
     return { ...item, start, end, color: COLORS[index % COLORS.length] };
   });
 
