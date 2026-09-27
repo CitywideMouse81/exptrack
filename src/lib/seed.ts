@@ -1,14 +1,28 @@
-import type { FinanceState } from "./types";
+import type { Account, FinanceState } from "./types";
+
+export const CASH_ACCOUNT: Account = {
+  id: "acc_cash",
+  name: "Cash Wallet",
+  institution: "Cash",
+  mask: "Cash",
+  type: "cash",
+  source: "manual",
+  currentBalance: 14500,
+  lastSyncedAt: null,
+  syncStatus: "ok",
+};
 
 export const SEED_DATA: FinanceState = {
+  accounts: [CASH_ACCOUNT],
   categories: [
-    { id: "cat_salary", name: "Salary", type: "income" },
-    { id: "cat_freelance", name: "Freelance", type: "income" },
-    { id: "cat_food", name: "Food", type: "expense" },
-    { id: "cat_rent", name: "Rent", type: "expense" },
-    { id: "cat_transport", name: "Transport", type: "expense" },
-    { id: "cat_shopping", name: "Shopping", type: "expense" },
-    { id: "cat_utilities", name: "Utilities", type: "expense" },
+    { id: "cat_salary", name: "Salary", type: "income", color: "#66D7B0" },
+    { id: "cat_freelance", name: "Freelance", type: "income", color: "#38bdf8" },
+    { id: "cat_food", name: "Food & Dining", type: "expense", color: "#f97316" },
+    { id: "cat_rent", name: "Rent & Housing", type: "expense", color: "#e11d48" },
+    { id: "cat_transport", name: "Transport", type: "expense", color: "#06b6d4" },
+    { id: "cat_shopping", name: "Shopping", type: "expense", color: "#a855f7" },
+    { id: "cat_utilities", name: "Bills & Utilities", type: "expense", color: "#eab308" },
+    { id: "cat_entertainment", name: "Entertainment", type: "expense", color: "#ec4899" },
   ],
   transactions: [
     {
@@ -18,14 +32,18 @@ export const SEED_DATA: FinanceState = {
       note: "September salary",
       date: "2026-09-01",
       categoryId: "cat_salary",
+      accountId: "acc_cash",
+      source: "manual",
     },
     {
       id: "tx_2",
       amount: 12000,
       type: "income",
-      note: "Weekend project",
+      note: "Weekend design project",
       date: "2026-09-10",
       categoryId: "cat_freelance",
+      accountId: "acc_cash",
+      source: "manual",
     },
     {
       id: "tx_3",
@@ -34,6 +52,8 @@ export const SEED_DATA: FinanceState = {
       note: "Apartment rent",
       date: "2026-09-02",
       categoryId: "cat_rent",
+      accountId: "acc_cash",
+      source: "manual",
     },
     {
       id: "tx_4",
@@ -42,22 +62,28 @@ export const SEED_DATA: FinanceState = {
       note: "Groceries + lunch",
       date: "2026-09-08",
       categoryId: "cat_food",
+      accountId: "acc_cash",
+      source: "manual",
     },
     {
       id: "tx_5",
       amount: 1800,
       type: "expense",
-      note: "Metro + auto",
+      note: "Metro + auto pass",
       date: "2026-09-12",
       categoryId: "cat_transport",
+      accountId: "acc_cash",
+      source: "manual",
     },
     {
       id: "tx_6",
       amount: 3500,
       type: "expense",
-      note: "Electricity + wifi",
+      note: "Electricity + wifi bill",
       date: "2026-09-05",
       categoryId: "cat_utilities",
+      accountId: "acc_cash",
+      source: "manual",
     },
     {
       id: "tx_7",
@@ -66,6 +92,8 @@ export const SEED_DATA: FinanceState = {
       note: "New headphones case",
       date: "2026-09-15",
       categoryId: "cat_shopping",
+      accountId: "acc_cash",
+      source: "manual",
     },
     {
       id: "tx_8",
@@ -74,6 +102,8 @@ export const SEED_DATA: FinanceState = {
       note: "August salary",
       date: "2026-08-01",
       categoryId: "cat_salary",
+      accountId: "acc_cash",
+      source: "manual",
     },
     {
       id: "tx_9",
@@ -82,14 +112,19 @@ export const SEED_DATA: FinanceState = {
       note: "August rent",
       date: "2026-08-02",
       categoryId: "cat_rent",
+      accountId: "acc_cash",
+      source: "manual",
     },
     {
       id: "tx_10",
       amount: 5100,
       type: "expense",
-      note: "August groceries",
+      note: "August groceries & organic store",
       date: "2026-08-18",
       categoryId: "cat_food",
+      accountId: "acc_cash",
+      source: "manual",
     },
   ],
+  batchPointers: {},
 };

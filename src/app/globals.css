@@ -1,8 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #f5f8f7;
+  --foreground: #112333;
+  --navy: #112333;
+  --mint: #66d7b0;
+  --mint-hover: #4ec29a;
+  --mint-soft: #eaf8f3;
+  --ink: #203447;
+  --coral: #e57370;
+  --card-border: #e2e8e6;
 }
 
 @theme inline {
@@ -16,6 +23,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 @keyframes shake {
@@ -40,4 +48,17 @@ body {
 
 .animate-shake {
   animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes sync-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.animate-sync-pulse {
+  animation: sync-pulse 1.4s ease-in-out infinite;
 }

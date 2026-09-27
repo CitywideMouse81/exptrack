@@ -1,7 +1,7 @@
 import type { FinanceState } from "./types";
 import { SEED_DATA } from "./seed";
 
-export const STORAGE_KEY = "expense-tracker:local-v1";
+export const STORAGE_KEY = "expense-tracker:local-v2";
 
 export function loadState(): FinanceState {
   if (typeof window === "undefined") return SEED_DATA;
@@ -10,7 +10,11 @@ export function loadState(): FinanceState {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return structuredClone(SEED_DATA);
     const parsed = JSON.parse(raw) as FinanceState;
-    if (!Array.isArray(parsed.categories) || !Array.isArray(parsed.transactions)) {
+    if (
+      !Array.isArray(parsed.accounts) ||
+      !Array.isArray(parsed.categories) ||
+      !Array.isArray(parsed.transactions)
+    ) {
       return structuredClone(SEED_DATA);
     }
     return parsed;
