@@ -1,16 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
+import { useRouter } from "next/navigation";
 import { useFinance } from "@/context/finance-context";
+import { getSession, signOut } from "@/lib/auth";
 import { ExpenseChart } from "./expense-chart";
 import { MonthFilter } from "./month-filter";
 import { SummaryCards } from "./summary-cards";
 import { TransactionDialog } from "./transaction-dialog";
 import { TransactionTable } from "./transaction-table";
 
+const noopSubscribe = () => () => {};
+const noSession = () => null;
+
 export function Dashboard() {
   const { ready, resetDemoData } = useFinance();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
+  const session = useSyncExternalStore(noopSubscribe, getSession, noSession);
+
+  function handleSignOut() {
+    signOut();
+    router.replace("/login");
+  }
 
   if (!ready) {
     return (
@@ -42,6 +54,39 @@ export function Dashboard() {
             >
               Add transaction
             </button>
+            {session && (
+              <div className="ml-1 flex items-center gap-1 rounded-full border border-slate-200 bg-white p-1">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-slate-900 text-[11px] font-semibold text-white">
+                  {session.name.charAt(0).toUpperCase()}
+                </span>
+                <span className="hidden pl-1 pr-1.5 font-mono text-xs text-slate-500 md:block">
+                  {session.email}
+                </span>
+                <span className="mx-0.5 hidden h-4 w-px bg-slate-200 md:block" />
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  title="Sign out"
+                  aria-label="Sign out"
+                  className="flex h-7 w-7 items-center justify-center rounded-full text-slate-400 transition hover:bg-slate-100 hover:text-slate-900"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-4 w-4"
+                    aria-hidden="true"
+                  >
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <path d="M16 17l5-5-5-5" />
+                    <path d="M21 12H9" />
+                  </svg>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </header>
