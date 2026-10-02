@@ -339,7 +339,7 @@ export function TransactionTable() {
                       <td className="px-5 py-3">
                         <div className="flex items-center gap-2">
                           <span className="font-medium text-slate-900">
-                            {tx.note || "—"}
+                            {tx.note || "No note"}
                           </span>
                           {tx.pending && (
                             <span className="rounded-md bg-amber-50 px-1.5 py-0.5 text-[10px] font-semibold text-amber-700 border border-amber-200">

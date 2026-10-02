@@ -47,7 +47,7 @@ export async function signIn(
   if (normalized !== DEMO_ACCOUNT.email) {
     return {
       ok: false,
-      error: "No account found for this email — try the demo account below.",
+      error: "No account found for this email. Try the demo account below.",
     };
   }
   if (password !== DEMO_ACCOUNT.password) {

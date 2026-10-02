@@ -28,3 +28,16 @@ Open http://localhost:3000
 
 Frontend now (`FinanceProvider` + localStorage) becomes API routes + Prisma later.
 Keep the dashboard components. Only swap the data layer.
+
+## Sign-in (demo auth)
+
+`/` is protected by `src/proxy.ts`. Signed-out visitors are redirected to `/login`,
+which validates credentials in the browser against a single fake account
+(`src/lib/auth.ts`):
+
+- email: `demo@exptrack.app`
+- password: `demo1234`
+
+A session cookie (`exptrack_session`) is set on success. "Keep me signed in"
+extends it to 30 days. Signing out from the dashboard header clears it.
+No server, no database, nothing leaves the browser.

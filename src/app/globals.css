@@ -62,3 +62,12 @@ body {
 .animate-sync-pulse {
   animation: sync-pulse 1.4s ease-in-out infinite;
 }
+
+/* Keep browser-autofilled inputs readable on dark surfaces */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f4f4f5;
+  caret-color: #f4f4f5;
+  transition: background-color 9999s ease-in-out 0s;
+}
